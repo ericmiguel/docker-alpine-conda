@@ -21,4 +21,6 @@ jobs:
         TAG: ${{github.event.release.tag_name}}
       run: docker build . --file Dockerfile --tag ericmiguel/alpine-conda:$TAG
     - name: push
-      run: docker push ${{secrets.DOCKER_USER}}/alpine-conda
+      env:
+        TAG: ${{github.event.release.tag_name}}
+      run: docker push ${{secrets.DOCKER_USER}}/alpine-conda:$TAG
