@@ -1,0 +1,26 @@
+name: Docker Image CI
+
+on:
+  release:
+    types:
+      - released
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker login
+      env:
+        DOCKER_USER: ${{secrets.DOCKER_USER}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - name: build image
+      env:
+        TAG: ${{github.event.release.tag_name}}
+      run: docker build . --file Dockerfile --tag ericmiguel/alpine-conda:$TAG
+    - name: push
+      env:
+        TAG: ${{github.event.release.tag_name}}
+      run: docker push ${{secrets.DOCKER_USER}}/alpine-conda:$TAG
