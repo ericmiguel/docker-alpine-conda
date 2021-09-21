@@ -11,4 +11,18 @@ More details about Alpine compiled against glibc, see [frolvlad`s repository](ht
 
 ## Usage Example
 
-Under construction.
+```bash
+docker pull ericmiguel/alpine-conda:{tag}
+```
+
+```Dockerfile
+FROM ericmiguel/alpine-conda:0.0.1
+LABEL MAINTAINER="Your name"
+
+COPY requirements.yaml /app
+RUN conda env update -f requirements.yaml -n base
+
+COPY app /app
+WORKDIR /app
+CMD ["bash", "-c", "python app"]
+```
