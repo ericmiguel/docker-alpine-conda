@@ -1,4 +1,4 @@
-# Alpine + Miniconda3 Docker image
+# Alpine + Miniconda Docker image
 
 Based on Alpine Linux, this image is ```~50% lighter``` than ```continuumio/miniconda3```.
 
